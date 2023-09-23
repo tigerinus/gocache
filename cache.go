@@ -14,6 +14,7 @@ func (c Cache[K, V]) Get(key K) *V {
 	}
 
 	if expirable.expirationTime < time.Now().UnixMilli() {
+		delete(c.cache, key)
 		return nil
 	}
 
