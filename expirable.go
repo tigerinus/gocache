@@ -2,14 +2,16 @@ package gocache
 
 import "time"
 
-type Expirable[T any] struct {
-	data           T
+type Expirable[K, V any] struct {
+	key            K
+	value          *V
 	expirationTime int64
 }
 
-func NewExpirable[T any](data T, ttl int64) Expirable[T] {
-	return Expirable[T]{
-		data:           data,
+func NewExpirable[K, V any](key K, value V, ttl int64) Expirable[K, V] {
+	return Expirable[K, V]{
+		key:            key,
+		value:          &value,
 		expirationTime: time.Now().UnixMilli() + ttl,
 	}
 }
